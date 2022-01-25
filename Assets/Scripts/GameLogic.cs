@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection.Emit;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 [RequireComponent(typeof(GameStatForUI))]
 public class GameLogic : MonoBehaviour
@@ -13,8 +14,6 @@ public class GameLogic : MonoBehaviour
     private GameStatForUI gameStatForUI;
     public bool gamePaused { get; private set; } = false;
     
-    [SerializeField] GameObject gameOverPanel;
-
     void Awake()
     {
         if (gameLogic != null)
@@ -36,12 +35,6 @@ public class GameLogic : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        gameStatForUI.ShowStats();
-        enemiesCount = GetEnemiesOnTheScene;
-    }
-
     public void DestroyEnemy(Enemy enemy)
     {
         gameStatForUI.EarnScores(enemy.myType);
@@ -53,7 +46,7 @@ public class GameLogic : MonoBehaviour
     private void LoadNextLevel() 
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextSceneIndex >= SceneManager.sceneCount)
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
             nextSceneIndex = 0;
         SceneManager.LoadScene(nextSceneIndex);
     }
@@ -65,17 +58,19 @@ public class GameLogic : MonoBehaviour
             GameOver();
     }
 
-    private void InitScene(Scene s, LoadSceneMode m)
+    private async void InitScene(Scene s, LoadSceneMode m)
     {
-        gameStatForUI.ShowStats();
         enemiesCount = GetEnemiesOnTheScene;
+        await Task.Delay(500);
+        gameStatForUI.ShowStats();
     }
 
     private void GameOver()
     {
         gamePaused = true;
         Time.timeScale = 0f;
-        GameObject.FindGameObjectWithTag("GameOverPanel").SetActive(true);
+        GameObject pn = GameObject.FindWithTag("GameOverPanel");
+        pn.GetComponent<CanvasGroup>().alpha = 1f;
     }
 
     public void RestartGame()

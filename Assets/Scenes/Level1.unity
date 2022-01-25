@@ -508,13 +508,14 @@ GameObject:
   - component: {fileID: 321247856}
   - component: {fileID: 321247858}
   - component: {fileID: 321247857}
+  - component: {fileID: 321247859}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: GameOverPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &321247856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -574,6 +575,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321247855}
   m_CullTransparentMesh: 1
+--- !u!225 &321247859
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321247855}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &462876592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684ac3fa3182ee742a8783f33b5915f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverPanel: {fileID: 321247855}
 --- !u!4 &934592558
 Transform:
   m_ObjectHideFlags: 0

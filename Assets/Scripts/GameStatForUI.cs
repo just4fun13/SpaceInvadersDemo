@@ -36,9 +36,10 @@ public class GameStatForUI : MonoBehaviour
     public void ShowStats()
     {
         if (ScoresChangedEvent != null)
-            ScoresChangedEvent(_scores);
+            ScoresChangedEvent(Scores);
         if (LifeCountChangedEvent != null)
-            LifeCountChangedEvent(_playerLifesCount);
+            LifeCountChangedEvent(Lifes);
+        Debug.Log($"Showwing scores : {Scores} / {Lifes}");
     }
 
     public void ResetScores()
@@ -56,4 +57,5 @@ public class GameStatForUI : MonoBehaviour
     {
         Lifes--;
     }
+
 }
