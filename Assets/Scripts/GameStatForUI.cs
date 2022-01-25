@@ -1,21 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStatForUI : MonoBehaviour
 {
-    private int _scores;
-    private int _playerLifes;
+    private int _scores = 0;
+    private int _playerLifes = 3;
+    public static GameStatForUI gameStatForUI;
+
+    public GameStatForUI()
+    {
+        gameStatForUI = this;
+    }
+
     public int scores
     {
         get { return _scores; }
-        private set { _scores = value; if (ScoresChanged != null) ScoresChanged(); }
+        private set 
+        { 
+            _scores = value; 
+        }
+    }
+
+    public static string GetMessage()
+    {
+        return $"IamAlive +{gameStatForUI.scores}";
     }
 
     public int playerLifes
     {
         get { return playerLifes; }
-        private set { playerLifes = value; if (LifesCountChanged != null) LifesCountChanged(); }
+        private set 
+        { 
+            playerLifes = value; 
+        }
     }
 
     public delegate void ScoresChangedVoid();

@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection.Emit;
 
 public class GameLogic : MonoBehaviour
 {
     public static GameLogic gameLogic;
     private int GetEnemiesOnTheScene => GameObject.FindGameObjectsWithTag("Enemy").Length;
     private int enemiesCount;
-    [SerializeField]
     private GameStatForUI gameStatForUI;
-
     void Awake()
     {
         if (gameLogic != null)
@@ -26,13 +25,13 @@ public class GameLogic : MonoBehaviour
     private void Start()
     {
         enemiesCount = GetEnemiesOnTheScene;
-//        gameStatForUI.ResetScores();
+        gameStatForUI = new GameStatForUI();
+        gameStatForUI.ResetScores();
     }
 
     public void DestroyEnemy(Enemy enemy)
     {
-        return;
-        gameStatForUI.KilledEnemy(enemy.myType);
+        GameStatForUI.gameStatForUI.KilledEnemy(enemy.myType);
         Destroy(enemy.gameObject);
         enemiesCount--;
         if (enemiesCount == 0)

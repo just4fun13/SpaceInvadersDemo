@@ -7,7 +7,6 @@ public class UIoutput : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoresText;
     [SerializeField] TextMeshProUGUI lifesText;
-    [SerializeField] GameStatForUI gameStatForUI;
 
     private void OnEnalbe()
     {
@@ -21,7 +20,7 @@ public class UIoutput : MonoBehaviour
         GameStatForUI.LifesCountChanged -= ShowLifesCount;
     }
 
-    public void ShowScores() => scoresText.text = $"Scores : {gameStatForUI.scores}";
+    public void ShowScores() => scoresText.text = $"Scores : {GameStatForUI.gameStatForUI.scores}";
 
-    public void ShowLifesCount() => lifesText.text = $"Lifes x {gameStatForUI.scores}";
+    public void ShowLifesCount() => lifesText.text = $"Lifes x {GameStatForUI.gameStatForUI.scores}";
 }
