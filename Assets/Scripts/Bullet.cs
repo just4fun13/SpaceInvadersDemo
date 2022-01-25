@@ -21,8 +21,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collider.gameObject.CompareTag("Player"))
         {
-            PlayerBehavior player = collider.transform.GetComponent<PlayerBehavior>();
-            player.Damaged();
+            GameLogic.gameLogic.PlayerGotDamage();            
         }
         Destroy(gameObject);
     }

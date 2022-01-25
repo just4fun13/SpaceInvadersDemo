@@ -16,13 +16,24 @@ public class Enemy : MonoBehaviour
 
     Color GetColorFromVector3(System.Numerics.Vector3 v) => new Color(v.X, v.Y, v.Z);
 
+
+    public async void Init(EnemyStat.EnemyType newType)
+    {
+        mySpr = GetComponent<SpriteRenderer>();
+        stats = new EnemyStat(myType);
+        mySpr.color = GetColorFromVector3(stats.colorV3);
+        if (stats.shotCount == 0) return;
+        await Task.Delay(Random.Range(2000, stats.shotPeriodInMilliSeconds));
+        ConstantlyShot();
+    }
+
     private async void Start()
     {
         mySpr = GetComponent<SpriteRenderer>();
         stats = new EnemyStat(myType);
         mySpr.color = GetColorFromVector3(stats.colorV3);
         if (stats.shotCount == 0) return;
-        await Task.Delay(Random.Range(2000, 5000));
+        await Task.Delay(Random.Range(2000, stats.shotPeriodInMilliSeconds));
         ConstantlyShot();
     }
 
@@ -37,6 +48,9 @@ public class Enemy : MonoBehaviour
 
     async void Shot()
     {
+        if (GameLogic.gameLogic.gamePaused) return;
+        mySpr.color = Color.red;
+        await Task.Delay(delayBetweenShotsInMilliSeconds);
         int shotCount = stats.shotCount;
         while (shotCount > 0)
         {
@@ -44,6 +58,7 @@ public class Enemy : MonoBehaviour
             shotCount--;
             await Task.Delay(delayBetweenShotsInMilliSeconds);
         }
+        mySpr.color = GetColorFromVector3(stats.colorV3);
     }
 
 

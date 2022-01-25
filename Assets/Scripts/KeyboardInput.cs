@@ -8,6 +8,7 @@ public class KeyboardInput : MonoBehaviour
 
     void Update()
     {
+        if (GameLogic.gameLogic.gamePaused) return;
         player.MoveHorizontal(Input.GetAxis("Horizontal"));
         player.MoveVertical(Input.GetAxis("Vertical"));
         if (Input.GetKeyDown(KeyCode.Space))

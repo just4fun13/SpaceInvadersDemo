@@ -8,19 +8,19 @@ public class UIoutput : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoresText;
     [SerializeField] TextMeshProUGUI lifesText;
 
-    private void OnEnalbe()
+    private void Awake()
     {
-        GameStatForUI.ScoresChanged += ShowScores;
-        GameStatForUI.LifesCountChanged += ShowLifesCount;
+        GameStatForUI.LifeCountChangedEvent += ShowLifesCount;
+        GameStatForUI.ScoresChangedEvent += ShowScores;
     }
 
     private void OnDisable()
     {
-        GameStatForUI.ScoresChanged -= ShowScores;
-        GameStatForUI.LifesCountChanged -= ShowLifesCount;
+        GameStatForUI.LifeCountChangedEvent -= ShowLifesCount;
+        GameStatForUI.ScoresChangedEvent -= ShowScores;
     }
 
-    public void ShowScores() => scoresText.text = $"Scores : {GameStatForUI.gameStatForUI.scores}";
+    public void ShowScores(int scores) => scoresText.text = $"Scores : {scores}";
 
-    public void ShowLifesCount() => lifesText.text = $"Lifes x {GameStatForUI.gameStatForUI.scores}";
+    public void ShowLifesCount(int lifes) => lifesText.text = $"Lifes x {lifes}";
 }

@@ -2,50 +2,58 @@ using UnityEngine;
 
 public class GameStatForUI : MonoBehaviour
 {
+    private int _playerLifesCount = 3;
     private int _scores = 0;
-    private int _playerLifes = 3;
-    public static GameStatForUI gameStatForUI;
 
-    public GameStatForUI()
-    {
-        gameStatForUI = this;
-    }
+    public delegate void ScoresChanged(int newScores);
+    public static event ScoresChanged ScoresChangedEvent;
+    public delegate void LifeCountChanged(int newScores);
+    public static event LifeCountChanged LifeCountChangedEvent;
 
-    public int scores
+
+    public int Scores
     {
         get { return _scores; }
-        private set 
+        set 
         { 
-            _scores = value; 
+            _scores = value;
+            if (ScoresChangedEvent != null)
+                ScoresChangedEvent(_scores);
         }
     }
 
-    public static string GetMessage()
+    public int Lifes
     {
-        return $"IamAlive +{gameStatForUI.scores}";
-    }
-
-    public int playerLifes
-    {
-        get { return playerLifes; }
-        private set 
+        get { return _playerLifesCount; }
+        set 
         { 
-            playerLifes = value; 
+            _playerLifesCount = value;
+            if (LifeCountChangedEvent != null)
+                LifeCountChangedEvent(_playerLifesCount);
         }
     }
 
-    public delegate void ScoresChangedVoid();
-    public static event ScoresChangedVoid ScoresChanged;
-    public delegate void LifesCountChangedVoid();
-    public static event LifesCountChangedVoid LifesCountChanged;
+    public void ShowStats()
+    {
+        if (ScoresChangedEvent != null)
+            ScoresChangedEvent(_scores);
+        if (LifeCountChangedEvent != null)
+            LifeCountChangedEvent(_playerLifesCount);
+    }
 
     public void ResetScores()
     {
-        scores = 0;
-        playerLifes = 3;
+        Lifes = 3;
+        Scores = 0;
     }
 
-    public void KilledEnemy(EnemyStat.EnemyType enemyType) => scores += 100 * (int)(enemyType + 1);
+    public void EarnScores(EnemyStat.EnemyType enemyType)
+    {
+        Scores += ((int)enemyType + 1) * 100;
+    }
 
-    public void LostLife() => playerLifes--;
+    public void PlayerDamage()
+    {
+        Lifes--;
+    }
 }

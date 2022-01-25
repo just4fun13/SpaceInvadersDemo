@@ -25,8 +25,4 @@ public class PlayerBehavior : MonoBehaviour
         Instantiate(bulletPrefab, transform.position, ShotUp() );
     }
 
-    public void Damaged()
-    {
-        Debug.Log("Player Damaged");
-    }
 }

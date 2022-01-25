@@ -33,14 +33,14 @@ public class EnemyStat
             case EnemyType.hard:
                 colorV3 = OrangeV;
                 hp = 2;
-                shotCount = 1;
-                shotPeriodInMilliSeconds = 5000;
+                shotCount = 2;
+                shotPeriodInMilliSeconds = 10000;
                 break;
             case EnemyType.super:
                 colorV3 = RedV;
                 hp = 3;
-                shotCount = 2;
-                shotPeriodInMilliSeconds = 1000;
+                shotCount = 3;
+                shotPeriodInMilliSeconds = 10000;
                 break;
         }
     }
