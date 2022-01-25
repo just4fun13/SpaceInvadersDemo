@@ -26,6 +26,7 @@ public class GameLogic : MonoBehaviour
             DontDestroyOnLoad(this);
             gameLogic = this;
         }
+        gameStatForUI = GetComponent<GameStatForUI>();
         SceneManager.sceneLoaded += InitScene;
     }
 
@@ -37,7 +38,6 @@ public class GameLogic : MonoBehaviour
 
     private void Start()
     {
-        gameStatForUI = GetComponent<GameStatForUI>();
         gameStatForUI.ShowStats();
         enemiesCount = GetEnemiesOnTheScene;
     }
@@ -75,14 +75,13 @@ public class GameLogic : MonoBehaviour
     {
         gamePaused = true;
         Time.timeScale = 0f;
-        gameOverPanel.SetActive(true);
+        GameObject.FindGameObjectWithTag("GameOverPanel").SetActive(true);
     }
 
     public void RestartGame()
     {
         gamePaused = false;
         Time.timeScale = 1f;
-        gameOverPanel.SetActive(false);
         gameStatForUI.ResetScores();
         SceneManager.LoadScene(0);
     }
